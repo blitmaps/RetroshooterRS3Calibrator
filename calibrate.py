@@ -31,7 +31,7 @@ import time
 RETROSHOOTER_NAME = '3A-3H Retro Shooter 1'
 CALIBRATION_TARGET = 'Mouse'
 # Some displays have a different logical and physical resolution, adjust this number until the targets are aligned properly
-desktop_scaling = 2
+desktop_scaling = 1
 display_w = 1920 * desktop_scaling
 display_h = 1080 * desktop_scaling
 # Adjust these if the targets are too small for you
