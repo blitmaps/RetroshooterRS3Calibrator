@@ -1,5 +1,6 @@
 # Retroshooter R3 Reaper Calibration Utility
 
+![output.gif](screenshot.gif)
 ## What is this?
 This is a small python program which calibrates the R3 Reaper Lightgun on Linux; 
 instead of using the (Windows Only) utility from the manufacturer.
