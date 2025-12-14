@@ -1,3 +1,4 @@
 evdev==1.9.2
 hid==1.0.8
 raylib==5.5.0.3
+pytoml==0.1.21

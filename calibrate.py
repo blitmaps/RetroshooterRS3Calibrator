@@ -24,8 +24,10 @@ from evdev import ecodes
 import select
 from pyray import *
 import time
+import pytoml as toml
 
-###### Calibration variables
+
+###### Calibration variables (DO NOT EDIT THESE, these are edited in the config.toml, and are added here as defaults)
 
 # This identifies the guns, the 'Mouse' is always needed, and perhaps the '1' to a '2' if its the second gun
 RETROSHOOTER_NAME = '3A-3H Retro Shooter 1'
@@ -38,6 +40,28 @@ display_h = 1080 * desktop_scaling
 target_size = 100
 half_size = int(target_size / 2)
 
+def load_configuration():
+    """
+    Loads configuration
+    :return: returns False if literally anything goes wrong
+    """
+    try:
+        with open('config.toml', 'rb') as fin:
+            cfg = toml.load(fin)
+            global RETROSHOOTER_NAME
+            global CALIBRATION_TARGET
+            global display_h, display_w, target_size, half_size, desktop_scaling
+            RETROSHOOTER_NAME = f'3A-3H Retro Shooter {cfg['gun']['player']}'
+            CALIBRATION_TARGET = cfg['gun']['calibration_target']
+            display_w = cfg['display']['x_resolution']
+            display_h = cfg['display']['y_resolution']
+            desktop_scaling = cfg['display']['dpi_scaling']
+            target_size = cfg['calibration']['target_size']
+            half_size = int(target_size / 2)
+            print(cfg)
+            return True
+    except:
+        return False
 
 def get_retroshooter_devices():
     devices = [evdev.InputDevice(path) for path in evdev.list_devices()]
@@ -88,6 +112,12 @@ def moveTargetTo(fromPosition, toPosition):
 
 if __name__ == "__main__":
 
+    did_configure_successfully = load_configuration()
+
+    if not did_configure_successfully:
+        print("Configuration loading failed, there must be a valid config.toml next to calibrate.py")
+        exit()
+
     # These variables are used in the calibration process
     has_calibration_begun = False
     has_calibration_completed = False
@@ -97,8 +127,12 @@ if __name__ == "__main__":
 
     devpath, hidpath = get_retroshooter_paths()
 
-    input_dev = evdev.InputDevice(devpath)
-    hidin = open(hidpath, "wb")
+    try:
+        input_dev = evdev.InputDevice(devpath)
+        hidin = open(hidpath, "wb")
+    except:
+        print("Gun is not detected, please connect it and try again, or view the config.toml")
+        exit()
 
     absVals = [[0, 100], [0, 100]] # input rectangle
     for (code, inf) in input_dev.capabilities()[ecodes.EV_ABS]:

@@ -1,0 +1,11 @@
+[display]
+x_resolution = 1920
+y_resolution = 1080
+dpi_scaling = 1
+
+[gun]
+player=1
+calibration_target="Mouse"
+
+[calibration]
+target_size=100
