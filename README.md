@@ -14,12 +14,29 @@ You should install it first, and then you can launch `calibrate.sh` from your fa
 It works the same as the other utilities, you point the gun at targets on the screen, and fire. The gun's internal firmware
 is then programmed and the calibration is 'commited'.
 
-### Limitations:
+## Configuration
 
-* Currently, the utility will calibrate only the Player 1 gun. This could be extended, but it is not a priority for me.
-* The utility is designed for a DPI scaled 4kTV. If targets do not appear near the edges of the monitor or the first is not
-dead center, then you may need to adjust the scaling properties.
-* I've not added configurations etc. Variables are hard coded, as they are what I need.
+There is a config.toml next to calibrate.py, this controls the behaviour of the calibration utility.
+
+example:
+```toml
+[display]
+x_resolution = 1920
+y_resolution = 1080
+dpi_scaling = 1
+
+[gun]
+player=1
+calibration_target="Mouse"
+
+[calibration]
+target_size=100
+```
+
+If your gun registers as 'player 2' (my gray gun), then setting player=2 will calibrate that one.
+
+
+### Limitations:
 * The code is low quality, as I ported from Batecera's codebase and did not want to mess with the application logic too much.
 
 ## Installation
