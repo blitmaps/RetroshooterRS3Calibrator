@@ -66,6 +66,21 @@ sudo usermod -a -G plugdev YOUR_USERNAME_DONT_COPY_ME_YOU_SILLY_GOOSE
 ```
 then reboot with `sudo reboot`.
 
+#### 4. Dependencies
+We rely on `evtest`, `python3-devel`, `pkg-config` and `raylib`.
+These will need to be installed from your distro's repos before setting up your python virtual environment. I'm happy
+to take pull requests for installation commands.
+
+#### 5. Setup a Python venv for calibrate.sh
+The calibrate shell script will toggle to the python venv for you, but this is how you set it up. Change
+directory to the location of `calibrate.sh` and run these commands:
+```commandline
+python3 -m venv .venv
+source .venv/bin/activate
+pip3 install -r requirements.txt
+```
+
+
 ### Installing the utility on Bazzite 
 #### (PR if you have installation instruction on somthing else)
 In the root of the repo directory, run the installer for the dependencies 
