@@ -33,7 +33,7 @@ import pytoml as toml
 RETROSHOOTER_NAME = '3A-3H Retro Shooter 1'
 CALIBRATION_TARGET = 'Mouse'
 # Some displays have a different logical and physical resolution, adjust this number until the targets are aligned properly
-desktop_scaling = 1
+desktop_scaling = 2
 display_w = 1920 * desktop_scaling
 display_h = 1080 * desktop_scaling
 # Adjust these if the targets are too small for you
@@ -53,9 +53,9 @@ def load_configuration():
             global display_h, display_w, target_size, half_size, desktop_scaling
             RETROSHOOTER_NAME = f'3A-3H Retro Shooter {cfg['gun']['player']}'
             CALIBRATION_TARGET = cfg['gun']['calibration_target']
-            display_w = cfg['display']['x_resolution']
-            display_h = cfg['display']['y_resolution']
             desktop_scaling = cfg['display']['dpi_scaling']
+            display_w = cfg['display']['x_resolution'] * desktop_scaling
+            display_h = cfg['display']['y_resolution'] * desktop_scaling
             target_size = cfg['calibration']['target_size']
             half_size = int(target_size / 2)
             print(cfg)
